@@ -3,7 +3,12 @@
 %  All input images must be RAW images. The exposure of the first image is
 %  taken as reference for the brightness of the resulting HDR image.
 
+
+
 function main(folder)
+% Initialization
+addpath(genpath('Functions'));
+
 %Parameters
 mask_width = 0.8;
 target_gamma = 2.2;
@@ -33,3 +38,4 @@ end
 
 %Merge RAW images into a single HDR image
 hdrmerge(inputLDRs, 'resulttest.hdr', save_memory,mask_width, blend_width, blend_cap,target_gamma);
+
