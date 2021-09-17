@@ -1,10 +1,9 @@
 # HDRFusion_RAW
 
-Objective : 
-Merge multiple RAW images to a single HDR image. 
+Matlab based merging of multiple RAW images to a single HDR image. Use the command line to run the main program with the input as the folder containing the LDR RAW images.
 
-Input:
-Folder containing the input images set of LDR RAW images. The first image is the base image, with its exposure taken as reference for the brightness of the resulting HDR image.
+```
+main('folder_name')
+```
 
-Output:
-A single HDR image in .hdr format
+A single HDR image in .hdr format is generated as output.
