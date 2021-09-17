@@ -8,4 +8,4 @@ main('folder_name')
 
 A single HDR image in .hdr format is generated as output.
 
-Note: DCRaw is required to read RAW images, use the following link to install https://gitlab.com/astrophotography/matlab-readraw.
+Note: DCRaw is required to read RAW images within MATLAB, you might need to install as documented here https://gitlab.com/astrophotography/matlab-readraw.
