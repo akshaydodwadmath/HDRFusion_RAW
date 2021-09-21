@@ -1,18 +1,18 @@
-function out = merge_exposures(exposures,  mask_width, blend_width,blend_cap,target_gamma,weight_first)
+function out = merge_exposures(exposures, baseIndex, mask_width, blend_width,blend_cap,target_gamma)
 
 numImages = size(exposures, 2);
 
 % blend scalings of all images to match first image exposure
 scalings = zeros(numImages);
 for i = 1:numImages
-    scalings(i) = compute_scaling(exposures{i}, exposures{1}, mask_width,target_gamma);
+    scalings(i) = compute_scaling(exposures{i}, exposures{baseIndex}, mask_width,target_gamma);
 end
 min_scaling = min(scalings);
 max_scaling = max(scalings);
 
 %compute blending weights
 weights = cell(1, numImages);
-total_weight = zeros(size(exposures{1}));
+total_weight = zeros(size(exposures{baseIndex}));
 for i = 1:numImages
     blend_low=(scalings(i) ~= min_scaling);
     blend_high=(scalings(i) ~= max_scaling);
@@ -25,9 +25,9 @@ for i = 1:numImages
 end
 
 %blend scaled images by weight
-final_image = double(zeros(size(exposures{1})));
-temp1 = double(zeros(size(exposures{1})));
-temp2 = double(zeros(size(exposures{1})));
+final_image = double(zeros(size(exposures{baseIndex})));
+temp1 = double(zeros(size(exposures{baseIndex})));
+temp2 = double(zeros(size(exposures{baseIndex})));
 for i = 1:numImages
     temp1 = immultiply(exposures{i},scalings(i));
     temp2 = immultiply(double(temp1), weights{i});
