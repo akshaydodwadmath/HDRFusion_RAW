@@ -9,10 +9,11 @@
 function main(folder, baseIndex, mask_width, blend_width, blend_cap,target_gamma)
 % Initialization
 addpath(genpath('Functions'));
+addpath(genpath('raw_guide'));
 
 %Set default load folder containing RAW images, if user does not set it.
 if( ~exist('folder') )
-    folder = 'CR2/Scene1'; % no tailing slash!
+    folder = 'CR2/Scene2New'; % no tailing slash!
 end
 
 %Set Parameters to default values if the user does not set them.
@@ -54,7 +55,7 @@ sceneFolder = sprintf('%s', folder);
 if (~exist(sceneFolder, 'dir'))
     error('Scene folder does not exist');
 end
-listOfFiles = dir(sprintf('%s\\*.CR2', sceneFolder));
+listOfFiles = dir(sprintf('%s\\*.dng', sceneFolder));
 if(isempty(listOfFiles))
     error('Scene folder is empty');
 end
@@ -67,8 +68,14 @@ end
 inputLDRs = cell(1, numImages);
 for i = 1 : numImages
     Path = sprintf('%s\\%s', folder, listOfFiles(i).name);
-    inputLDRs{i} = imread(readraw, Path, '-a -T -6 -q 3');
-    inputLDRs{i} = im2double(inputLDRs{i});
+    % - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    % - - Enter the filename and choose reading approach, 'DNG' or 'DCRAW', and
+    % the Bayer pixel arrangement of camera, 'rggb','bggr','gbrg' or 'grbg' - -
+    filename = Path
+    read_app = 'DNG';               % 'DNG' for .dng  or  'DCRAW' for .tiff
+    bayer_type = 'rggb';
+    % - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    inputLDRs{i} = raw_process(Path, read_app, bayer_type, i);
 end
 
 %Merge RAW images into a single HDR image
