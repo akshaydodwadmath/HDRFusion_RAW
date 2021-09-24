@@ -1,9 +1,10 @@
 # HDRFusion_RAW
 
-Matlab based merging of multiple RAW images to a single HDR image. Use the command line to run the main program with the input as the folder containing the LDR RAW images.
+Matlab based merging of multiple RAW images to a single HDR image (Python package Rawhdr used as reference (https://pypi.org/project/rawhdr/) . 
+Use the command line to run the main program with the input as the folder containing the LDR RAW images, and the index of the image used for setting the exposure. 
 
 ```
-main('folder_name')
+main('folder_name', 'baseImage_index')
 ```
 
 A single HDR image in .hdr format is generated as output.
